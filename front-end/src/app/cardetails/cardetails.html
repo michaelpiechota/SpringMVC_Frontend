@@ -1,0 +1,77 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="w3-container w3-teal">
+        <div class="w3-padding w3-left">
+            <h1>
+                Welcome to {{title}}!
+            </h1>
+        </div>
+    <a href="#" class="w3-teal w3-right" href="http://localhost:8080/carmanager/logout/">
+            <span class="glyphicon glyphicon-log-out w3-jumbo"></span>
+    </a>
+</div>
+ 
+    <br><br/>
+<div class="w3-row">
+<div class="w3-container w3-col s6  w3-card-4">
+<header class="w3-container w3-teal w3-padding-16">
+ <b> Add Cars</b>
+</header>
+<div class="w3-container w3-padding-64">
+  <table class="w3-table">
+        <tr><td><b>Make</b></td><td><input type="text" name="make" class="w3-input" [(ngModel)]="cardetails.make" value="{{cardetails.make}}" /></td></tr>
+        <tr><td><b>Model</b></td><td><input type="text" name="model" class="w3-input" [(ngModel)]="cardetails.model" value="{{cardetails.model}}"/></td></tr>
+        <tr><td><b>Year</b></td><td><input type="text" name="year" class="w3-input" [(ngModel)]="cardetails.year" value="{{cardetails.year}}"/></td></tr>
+        <tr><td> <input type="button" (click)="onSubmit(cardetails.make,cardetails.model,cardetails.year)" value="Submit" class="w3-btn w3-teal"/></td></tr>
+  </table>
+    <div class="w3-padding">
+     
+    </div>
+</div>
+</div>
+<div class="w3-container w3-col s6 w3-card-4">
+  <header class="w3-container w3-teal w3-padding-16">
+   <b> View Cars</b>&nbsp;&nbsp;(click on car to rate it)
+</header>
+  <div class="w3-container">
+  <ul class="w3-ul">
+   <li *ngFor="let m of result">
+    <table class="w3-table">
+        <tr><td><b>Id: </b></td><td>{{m.id}}</td></tr>
+        <tr><td><b>Make: </b></td><td>{{m.make}}</td></tr>
+        <tr><td><b>Model: </b></td><td> {{m.model}}</td></tr>
+        <tr><td><b>Year: </b></td><td>{{m.year}}</td></tr>
+        <input type="hidden" value="{{m.id}}" [(ngModel)]="m.id" #id="ngModel"/>
+        <tr><td><b>Click Here To Mange Ratings: </b></td><td><input onclick="document.getElementById('id01').style.display='block'" (click)="getRatings(m.id)" id="{{m.id}}" class="w3-btn w3-teal" type="button" value="GO" /></td></tr>
+    </table>
+    </li>
+  </ul>
+</div>
+</div>
+<div id="id01" class="w3-modal">
+  <div class="w3-modal-content">
+    <div class="w3-container">
+      <header class="w3-container"> 
+      <span onclick="document.getElementById('id01').style.display='none'" 
+      class="w3-button  w3-display-topright">&times;</span>
+      <h2>Current Ratings</h2>
+    </header>
+    <div class="w3-container">
+        <table class="w3-table">
+            <tr><th><b>Rating Id</b></th><th><b>Rating</b></th></tr>
+             <tr  *ngFor="let m of ratingResult">
+                 <td>{{m.id}}</td><td>{{m.rating}}</td>
+             </tr>
+        </table>
+        <table class="w3-table">
+               <input type="hidden" value="{{ratingDetails.id}}" name="id" [(ngModel)]="ratingDetails.id"/>
+                <tr>
+                    <td><input type="number" name="rating" value="{{ratingDetails.rating}}" min="1" max="10" class="w3-input" [(ngModel)]="ratingDetails.rating"/></td>
+                    <td><input type="button" value="Rate" (click)="onSubmitRating(ratingDetails.id,ratingDetails.rating)" class="w3-btn w3-teal"/></td>
+                </tr>
+        </table>
+    </div>
+    </div>
+  </div>
+</div>
+</div>
+
